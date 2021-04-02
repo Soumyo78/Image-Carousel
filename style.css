@@ -1,0 +1,10 @@
+#app{
+    display: flex;
+    flex-direction: row;
+    transition: transform 900ms ease;
+}
+
+.main-container{
+    width: 100%;
+    overflow: hidden;
+}
