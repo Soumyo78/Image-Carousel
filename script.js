@@ -10,9 +10,19 @@ let slideImgArr = [
 const autoSlideCarousel = (locationDOM, ImgArr) =>{
     let offset = 0;
     const slideImg = (numberOfImg, locationDOM) =>{
-        let rate = 100/numberOfImg;
-        offset = (offset+rate)%100;
-        locationDOM.style.transform = `translate(-${offset}%, 0)`
+        if(offset < 100){
+            let rate = 100/numberOfImg;
+            offset = (offset+rate)%100;
+            locationDOM.style.transform = `translate(-${offset}%, 0)`
+        }
+    }
+    
+    const slideImgBack = (numberOfImg, locationDOM) =>{
+        if(offset > 0){
+            let rate = 100/numberOfImg;
+            offset = (offset-rate)%100;
+            locationDOM.style.transform = `translate(-${offset}%, 0)`
+        }
     }
 
     locationDOM.style.width = `${ImgArr.length*100}%`;
@@ -31,7 +41,10 @@ const autoSlideCarousel = (locationDOM, ImgArr) =>{
         locationDOM.appendChild(imgContainer);
     });
 
-    setInterval(()=>slideImg(ImgArr.length, carouselContainer), 3000)
+    document.getElementById('next-btn').addEventListener('click', ()=>slideImg(ImgArr.length, carouselContainer));
+    document.getElementById('prev-btn').addEventListener('click', ()=>slideImgBack(ImgArr.length, carouselContainer));
+
+    setInterval(()=>slideImg(ImgArr.length, carouselContainer), 3000);
 }
 
 const carouselContainer = document.getElementById('app');
